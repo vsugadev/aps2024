@@ -1,0 +1,45 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+
+<p>
+{% if title == "Refreshment Dashboard" %}
+    <a href="{{ url_for('event.refresh_details', id = 0, type=0 ) }}">Refreshment Sign-Up Details</a>&nbsp;&nbsp;
+    <a href="{{ url_for('event.refresh_details', id = 0, type=1 ) }}">Refreshment Not Signed-Up </a>
+{% else %}
+    <a href="{{ url_for('class_management.dashboard') }}"> Class </a> &nbsp;&nbsp;
+    <a href="{{ url_for('enrollment.enrollment_dashboard') }}"> Enrollment </a> &nbsp;&nbsp;
+    <a href="{{ url_for('class_tracking.class_tracking_dashboard') }}"> Class Progress </a> &nbsp;&nbsp;
+    <a href="{{ url_for('attendance.attendance_dashboard', type=1) }}"> Attendance </a> &nbsp;&nbsp;
+    <a href="{{ url_for('homework.homework_dashboard', type=1) }}"> Project </a> &nbsp;&nbsp;
+    <a href="{{ url_for('homework.homework_dashboard') }}"> Homework </a> &nbsp;&nbsp;
+    <a href="{{ url_for('exam.exam_dashboard') }}"> Trimester Exam </a>
+{% endif %}
+</p>
+
+<title>{{ title }}</title>
+<h3>{{ title }}</h3>
+
+{% if rowcount > 0 %}
+    {% if title == "Trimester Dashboard" %}
+        {% for index in range(2) %}
+            <p><b>{{ sub_title[index] }}</b></p>
+               {{ tables[index]|safe }}
+            </BR>
+        {% endfor %}
+    {% else %}
+        {% for table in tables %}
+            {{ table|safe }}
+        {% endfor %}
+    {% endif %}
+
+    {% if title not in [ "Enrollment Dashboard", "Trimester Dashboard", "Refreshment Dashboard" ]  %}
+        <p> Count : {{ rowcount }} </p>
+    {% endif %}
+
+{% else %}
+    <p style="color:#FF0000";><b> Info not available </b></p> </p>
+{% endif %}
+
+{% endblock %}
+

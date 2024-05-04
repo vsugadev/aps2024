@@ -1,0 +1,38 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<h1>Parents Profile</h1>
+
+{% from "common/_formhelpers.html" import render_field %}
+<form action="" method="POST" class="form" role="form">
+  <div class="row">
+    <div class="col-sm-6 col-md-5 col-lg-4">
+
+        {{ form.hidden_tag() }}
+        {{ render_field(form.father_name, size=25 ) }}
+        {{ render_field(form.mother_name, size=25 ) }}
+        {{ render_field(form.email, size=25 ) }}
+        {{ render_field(form.email2, size=25 ) }}
+        {{ render_field(form.phone1, size=10 ) }}
+        {{ render_field(form.phone2, size=10 ) }}
+        {{ render_field(form.parents_street_address, size=25 ) }}
+        {{ render_field(form.parents_street_address2, size=10 ) }}
+        {{ render_field(form.parents_city, size=25 ) }}
+        {{ render_field(form.parents_state, size=25 ) }}
+        {{ render_field(form.parents_country, size=25 ) }}
+        {{ render_field(form.parents_zipcode, size=10 ) }}
+        {{ render_field(form.reference ) }}
+        {{ render_field(form.teaching_volunteer ) }}
+        {{ render_field(form.teaching_dayntime ) }}
+        {{ render_field(form.teaching_grade ) }}
+        {{ render_field(form.class_parent ) }}
+        <BR/>
+        {{ render_field(form.roles ) }}
+        <BR/>
+        {{ render_field(form.submit ) }}
+
+    </div>
+  </div>
+</form>
+
+{% endblock %}

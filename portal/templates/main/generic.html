@@ -1,0 +1,87 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+
+{% if mode == "dashboard" %}
+    <p><a href="{{ url_for('class_management.dashboard') }}">Dashboard</a></p>
+{% elif mode == "myenrollment" %}
+    <p>My Enrollment</p>
+{% elif mode == "mypayment" %}
+    <p>My Payment Details</p>
+{% elif mode == "profile" %}
+    <title>{{ title }}</title>
+    <h3>{{ title }}</h3>
+    <p><a href="{{ url_for('profile.search_profile') }}">Profile Update</a></p>
+{% elif mode == "program_list" %}
+    <h3>Program List</h3>
+{% elif mode == "program_role" %}
+    <h3>Program Coordinators</h3>
+{% elif mode == "event_master" %}
+    <h3>Events</h3>
+{% elif mode == "refresh" %}
+    <title>{{ title }}</title>
+    <h3>{{ title }}</h3>
+    <p><a href="{{ url_for('event.refresh_dashboard') }}">Refreshment Dashboard</a></p>
+{% elif mode == "category_list" %}
+    <title>{{ title }}</title>
+    <h3>{{ title }}</h3>
+{% elif mode == "category_detail" %}
+    <title>{{ title }}</title>
+    <h3>{{ title }}</h3>
+    <p><a href="{{ url_for('setting.category_list')}}">Config Category</a></p>
+{% elif mode == "school_year" %}
+    <title>{{ title }}</title>
+    <h3>{{ title }}</h3>
+{% else %}
+    <p><a href="{{ url_for('search', mode=mode) }}">Search Students</a></p>
+{% endif %}
+
+{% if rowcount > 0 %}
+    {{ table }}
+    <p>Count: {{ rowcount }} </p>
+    {% if mode == "payment" %}
+        <p><b>Total Paid: {{ paid_amount }} </b></p>
+    {% endif %}
+{% else %}
+    <p style="color:#FF0000";><b> No Information Found </b></p> </p>
+{% endif %}
+
+{% if mode == "class_list" %}
+    <p></p>
+    <p><a href="{{ url_for('class_management.class_edit', section=0) }}">Add Class</a></p>
+{% elif mode == "program_list" %}
+    <p></p>
+    <p><a href="{{ url_for('event.program_edit', id=0) }}">Add Program</a></p>
+{% elif mode == "program_role" %}
+    <p></p>
+    {% if is_admin %}
+        <p><a href="{{ url_for('event.program_role_edit', id=0) }}">Add Coordinator</a></p>
+    {% endif %}
+{% elif mode == "event_master" %}
+    <p></p>
+    <p><a href="{{ url_for('event.event_master_edit', id=0) }}">Add Event</a></p>
+{% elif mode == "myenrollment" and new_enroll %}
+    <p></p>
+    <p><a href="{{ url_for('enrollment.student_edit', id=0) }}">Enroll New Student</a></p>
+{% elif mode == "refresh" %}
+    <p></p>
+    <p><a href="{{ url_for('event.refresh_details', id=1, type=type) }}">Download Details</a></p>
+{% elif mode == "category_detail" %}
+    <p></p>
+    <p><a href="{{ url_for('setting.category_edit', id= "%s|-1|"%name ) }}">Add a config</a></p>
+{% elif mode == "school_year" %}
+    <p></p>
+    {% if add_year %}
+        <p><a href="{{ url_for('rollover.school_year_edit', id=0) }}">Add Next Year</a></p>
+    {% endif %}
+    {% if generate_calendar %}
+        <p><a href="{{ url_for('rollover.generate_calendar') }}"> Generate Calendar</a></p>
+    {% endif %}
+    {% if rollover %}
+        <p><a href="{{ url_for('rollover.rollover') }}"> Rollover</a></p>
+    {% endif %}
+
+{% endif %}
+
+{% endblock %}
+

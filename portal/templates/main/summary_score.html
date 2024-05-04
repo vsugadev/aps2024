@@ -1,0 +1,78 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+
+<p></p>
+{% if current %}
+    {% if previous %}
+        <p><a href="{{ url_for('grade.myevaluation', mode=1) }}">Evaluations - Previous Year(s) </a></p>
+    {% endif %}
+{% elif not inactive %}
+    <p><a href="{{ url_for('grade.myevaluation') }}">Evaluations - Current Year</a></p>
+{% endif %}
+
+<p></p>
+<title>{{ title }}</title>
+<h3>{{ title }}</h3>
+
+<p></p><p></p><p></p>
+<h3> Avvaiyar Pada Salai(APS) - Score Card</h3>
+{% if view == 1 %}
+    {% for key, section in section_dict.items() %}
+        <a href="{{ url_for('grade.summary_score', section=key ) }}"> {{section}} </a>&nbsp;&nbsp;
+    {% endfor %}
+    <p></p>
+{% endif %}
+
+{% if rowcount > 0 %}
+    {% for table in tables %}
+        {{ table|safe }}
+    {% endfor %}
+
+    <p> Count : {{ rowcount }} </p>
+
+{% else %}
+    <p style="color:#FF0000";><b>Not yet enrolled</b></p> </p>
+{% endif %}
+
+<p></p><p></p><p></p>
+<p style="color:#7B68EE";> <b>Final Grade Policy</b></p>
+<table border = "1px solid black;">
+    <tr><th>Category</th><th>Total Points&nbsp;&nbsp;</th><th>Weightage&nbsp;&nbsp;</th></tr>
+    <tr><td>Exam</td><td><center>100</center></td><td><center>25 % </center></td></tr>
+    <tr><td>Attendance</td><td><center>25</center></td><td><center>10 % </center></td></tr>
+    <tr><td>Homework</td><td><center>10</center></td><td><center>10 % </center></td></tr>
+    <tr><td>Quiz</td><td><center>25</center></td><td><center>10 % </center></td></tr>
+    <tr><td>Project</td><td><center>15</center></td><td><center>25 % </center></td></tr>
+    <tr><td>Classwork</td><td><center>10</center></td><td><center>20 % </center></td></tr>
+    <tr><td><b>TOTAL</b></td><td></td><td><b><center>100 %</center></b></td></tr>
+</table>
+
+<p></p><p></p><p></p>
+
+<h3>American Tamil Academy(ATA) - Score Card</h3>
+{% if rowcount > 0 %}
+    {% for table in ata_tables %}
+        {{ table|safe }}
+    {% endfor %}
+
+    <p> Count : {{ rowcount }} </p>
+
+{% else %}
+    <p style="color:#FF0000";><b>Not yet enrolled</b></p> </p>
+{% endif %}
+
+
+<p></p><p></p><p></p>
+<p style="color:#7B68EE";> <b>Final Grade Policy</b></p>
+<table border = "1px solid black;">
+    <tr><th>Category</th><th>Total Points&nbsp;&nbsp;</th><th>Weightage&nbsp;&nbsp;</th></tr>
+    <tr><td>First Trimester Exam</td><td><center>100</center></td><td><center>15 % </center></td></tr>
+    <tr><td>Second Trimester Exam</td><td><center>25</center></td><td><center>15 % </center></td></tr>
+    <tr><td>Third(Final) Trimester Exam</td><td><center>25</center></td><td><center>20 % </center></td></tr>
+    <tr><td>Attendance</td><td><center>25</center></td><td><center>25 % </center></td></tr>
+    <tr><td>Homework</td><td><center>20</center></td><td><center>25 % </center></td></tr>
+    <tr><td><b>TOTAL</b></td><td></td><td><b><center>100 %</center></b></td></tr>
+</table>
+
+{% endblock %}

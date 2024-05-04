@@ -1,0 +1,22 @@
+Dear {{ parent_main}} & {{ parent_second }},
+<p>
+This is to confirm that we received payment for the acedamic year {{ academic_year_label }} and enrollment has been confirmed.
+</p>
+
+<table border="1">
+    <tr>
+        <th>Student Name</th><th>Enrollment Status</th><th>Paid</th><th>Fee</th><th>Amount Paid</th><th>Balance</th><th>Paid Date</th><th>Payment Mode</th>
+    </tr>
+{% for user in users %}
+    <tr>
+        <td>{{ user["student_name"]}}</td><td>{{user["enrollment_status"]}}</td><td>{{user["payment_status"]}}</td><td>${{user["due_amount"]}}</td>
+        <td>${{user["paid_amount"]}}</td><td>${{user["balance"]}}</td>
+        <td>{% if user["paid_date"] %} {{user["paid_date"].strftime('%Y-%m-%d')}}{% endif %}</td><td>{{user["payment_mode"]}}</td>
+    </tr>
+
+{% endfor %}
+</table>
+<p>
+</p>
+
+{% include 'email/mail_footer.html' %}

@@ -1,0 +1,39 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<h2>Teacher(s) Feedback - Academic Year 2022-2023</h2>
+<BR/>
+<form action="" method="POST" class="form" role="form" onSubmit="return confirm('Are you sure to submit your feedback?');">
+  <div class="row">
+    {% from "common/form_macros.html" import render_field, render_submit_field %}
+    <div class="col-sm-6 col-md-5 col-lg-5">
+    {{ render_field(form.email, size=60 ) }}
+<p></p>
+<p></p>
+    {{ render_field(form.teach_exp) }}
+<p></p>
+<p></p>
+    {{ render_field(form.teach_cont) }}
+<p></p>
+<p></p>
+    {{ render_field(form.teach_grade) }}
+<p></p>
+<p></p>
+    {{ render_field(form.teach_rec) }}
+<p></p>
+<p></p>
+    {{ render_field(form.teach_ref, size=60) }}
+<p></p>
+<p></p>
+    {{ render_field(form.teach_ref_stud) }}
+<p></p>
+<p></p>
+    {{ render_field(form.comments, size=60) }}
+<p></p>
+<p></p>
+    {{ render_submit_field(form.submit ) }}
+    </div>
+  </div>
+</form>
+
+{% endblock %}

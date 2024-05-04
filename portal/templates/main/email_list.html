@@ -1,0 +1,13 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<h1>Active Emails</h1>
+<form action="" method="POST" class="form" role="form">
+{% from "common/_formhelpers.html" import render_field %}
+    {{ render_field(form.primary_emails ) }}
+    {{ primary_count }}
+    {{ render_field(form.secondary_emails ) }}
+    {{ secondary_count }}
+
+</form>
+{% endblock %}

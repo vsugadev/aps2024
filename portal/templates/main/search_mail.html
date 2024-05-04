@@ -1,0 +1,23 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+
+<title>{{ title }}</title>
+<h2>{{ title }}</h2>
+
+{% from "common/_formhelpers.html" import render_field %}
+
+<form action="" method="POST" class="form" role="form">
+
+<form method=post>
+    {{ form.csrf_token }}
+    {{ form.mode }}
+  <p>
+    {{ render_field(form.notification_type) }}
+    {{ render_field(form.name) }} {{ render_field(form.section) }} {{ render_field(form.nilai) }} {{ render_field(form.paid) }} {{ render_field(form.enrollment) }} {{ render_field(form.inactive) }} {{ render_field(form.new) }} {{ render_field(form.to_csv) }} {{ render_field(form.to_email) }}
+  </p>
+  <p><input type=submit value=Search></p>
+
+</form>
+
+{% endblock %}

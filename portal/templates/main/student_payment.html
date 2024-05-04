@@ -1,0 +1,46 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<h2>Make Payments</h2>
+{% from "common/form_macros.html" import render_field, render_submit_field %}
+<p><a href="{{ url_for('search', mode=mode) }}">Search Students</a></p>
+
+<form action="/payment_update" method="POST" class="form" name="student_payment_update">
+    <table border="3"><tr>
+        <th>Student Name</th>
+        <th>Nilai</th>
+        <th>Section</th>
+        <th>Enrollment Status</th>
+        <th>Payment</th>
+        <th>Start Year</th>
+        <th>Pre. Balance</th>
+        <th>Fee</th>
+        <th>Discount</th>
+        <th>Amount Paid</th>
+        <th>New Amount</th>
+        <th>Check #</th>
+    </tr>
+    {% for student_form in form.students %}
+    <tr>
+        {{student_form.enrollment_id() }}
+        <td>{{ student_form.student_name }}</td>
+        <td>{{ student_form.nilai(size=2) }}</td>
+        <td>{{ student_form.section(size=2) }}</td>
+        <td>{{ student_form.enrollment_status }}</td>
+        <td>{{ student_form.payment_status(size=5) }}</td>
+        <td>{{ student_form.start_year(size=6) }}</td>
+        <td>{{ student_form.previous_balance(size=7) }}</td>
+        <td>{{ student_form.due (size=6) }}</td>
+        <td>{{ student_form.discount_amount(size=6) }}</td>
+        <td>{{ student_form.paid_amount(size=8) }}</td>
+        <td>{{ student_form.new_amount(size=8) }}</td>
+        <td>{{ student_form.check_no(size=10) }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+    <p/>
+    Count: {{ count }}
+    <p>{{ render_submit_field(form.submit) }}</p>
+</form>
+
+{% endblock %}

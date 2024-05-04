@@ -1,0 +1,49 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<h1>Enrollment</h1>
+
+{% from "common/_formhelpers.html" import render_field %}
+{% if mode == "edit" %}
+    <p><a href="{{ url_for('search', mode=enroll) }}">Search Students</a></p>
+{% else %}
+    <p><a href="{{ url_for('enrollment.myenrollment') }}">My Enrollment</a></p>
+    <p style="color:#FF0000";>The minimum age for enrollment is 4 years as of December 31st, {{ session['ACADEMIC_YEAR'] }}</p>
+{% endif %}
+
+<form action="" method="POST" class="form" role="form">
+<form method=post>
+  <div class="row">
+    <div class="col-sm-6 col-md-5 col-lg-4">
+    {{ form.student_id }}
+    {{ render_field(form.student_first_name) }}
+    {{ render_field(form.student_last_name) }}
+    {{ render_field(form.student_name) }}
+    {{ render_field(form.student_name_tamil) }}
+    {{ render_field(form.sex) }}
+    {{ render_field(form.birth_year) }}
+    {{ render_field(form.age) }}
+    {{ render_field(form.birth_month) }}
+    {{ render_field(form.student_email) }}
+    <p></p>
+    {{ render_field(form.book_shipment_preference) }}
+    <p></p>
+    <pre>
+    Note: 
+    1. Group Shipment - The books would be shipped in a group with your neighborhood children.
+    2. Individual Shipment - The books would be shipped to your USPS address.
+    </pre>
+    <p></p>
+    <p style="color:#FF0000";><b> The below details required for new enrollments only </b></p> </p>
+    {{ render_field(form.school_grade) }}
+    {{ render_field(form.skill_level_joining) }}
+    {{ render_field(form.prior_tamil_school, cols="40", rows="3") }}
+    {{ render_field(form.preferred_grade) }}
+    {{ render_field(form.preferred_dayntime) }}
+
+    {{ render_field(form.submit) }}
+    </div>
+  </div>
+</form>
+
+{% endblock %}

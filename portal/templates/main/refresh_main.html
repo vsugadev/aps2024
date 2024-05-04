@@ -1,0 +1,21 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+
+<title>Refreshment Signup</title>
+<h3>Refreshment Signup</h3>
+
+{% from "common/_formhelpers.html" import render_field %}
+
+<form action="" method="POST" class="form" role="form">
+
+<form method=post>
+    {{ form.csrf_token }}
+  <p>
+    {{ render_field(form.refresh_status) }}
+  </p>
+  <p><input type=submit value=Next></p>
+
+</form>
+
+{% endblock %}

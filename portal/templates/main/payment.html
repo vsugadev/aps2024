@@ -1,0 +1,90 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Ensures optimal rendering on mobile devices. -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Optimal Internet Explorer compatibility -->
+</head>
+
+<title>Payment </title>
+<h3>My Payment Details</h3>
+
+{% if rowcount > 0 %}
+    {{ table }}
+
+    <BR/>
+    <b>
+     Balance : $ {{ balance }}
+    </b>
+    <BR/>
+    {% if unconfirmed > 0 %}
+        <BR/>
+        <b><p style="color:#FF0000";>Enrollment is pending for {{ unconfirmed }} student(s), complete all enrollments before making payment</p></b>
+    {% endif %}
+    <BR/>
+{% if balance > 0 and unconfirmed == 0 %}
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<div id="paypal-button"></div>
+<script>
+    var CREATE_PAYMENT_URL  = "{{ url_for('payment.paypal_payment') }}"
+    var EXECUTE_PAYMENT_URL = "{{ url_for('payment.execute') }}" ;
+    var REDIRECT_PAYMENT_URL = "{{ url_for('payment.confirm_payment') }}" ;
+
+
+    paypal.Button.render({
+        env: '{{ env }}' ,
+        commit: true, // Show a 'Pay Now' button
+        payment: function() {
+            return paypal.request.post(CREATE_PAYMENT_URL).then(function(data) {
+                return data.paymentID;
+            });
+        },
+
+        onAuthorize: function(data) {
+            return paypal.request.post(EXECUTE_PAYMENT_URL, {
+                paymentID: data.paymentID,
+                payerID:   data.payerID
+            }).then(function(res) {
+                alert("Payment success!");
+                location.href = REDIRECT_PAYMENT_URL ;
+                console.log(res.success)
+                // The payment is complete!
+                // You can now show a confirmation message to the customer
+            });
+        } } ,  '#paypal-button');
+</script>
+{% endif %}
+
+{% else %}
+    <p style="color:#FF0000";><b> No Enrollment Found </b></p> </p>
+{% endif %}
+
+</BR></BR></BR></BR></BR></BR>
+</p></p></p></p></p></p></p></p></p>
+<Marquee style="color:#0000FF; font-size: 16pt; font-weight: bold";>AvvaiyarPadaSalai (APS) and AmChaTS reaching out to you for a good cause. Adopt a government school student </Marquee>
+</p></p></p></p></p></p></p></p></p>
+<h3> வறிய அரசு பள்ளி மாணவர்களைத் தத்தெடுத்து உதவுங்கள் - Adopt a government school student  <a href="https://secure.givelively.org/donate/american-charitable-tamil-society/adopt-a-child-educational-expenses" target="_blank"><img src="/static/image/donate.png" width="100" height="100"/></a></h3>
+
+<pre>
+ஔவையார் பாடசாலை பெற்றோர்கள் மற்றும் தன்னார்வலர்கள் அனைவருக்கும் வணக்கம்,
+
+அமெரிக்க ஈகைத் தமிழ்ச் சமூகம் தமிழ்த் தொண்டாற்றுவது மட்டுமின்றி பல சமூக நற்பணிகளைச் செய்துவருகின்றது என்பதை அனைவரும் ஏற்கெனவே அரிந்திருப்பீர்கள்.
+அதன் ஒரு பகுதியாக வறிய அரசு பள்ளி மாணவர்களைத் தத்தெடுத்து உதவும் கல்விக் கொடை திட்டத்தை இந்த ஆண்டு முதல் செயல்படுத்த இருக்கின்றோம் என்பதை மகிழ்ச்சியுடன் தெரிவித்துக்கொள்கின்றோம்.
+இத்திட்டத்தின் நோக்கம் நமது பாடசாலையில் பயிலும் மாணவர்களின் எண்ணிக்கைக்கு நிகரான எண்ணிக்கையில் தமிழ் நாட்டில் வாழும் வறிய மாணவர்களைத் தத்தெடுத்து அவர்கள் தொடர்ந்து கல்வி பயில உதவுவது.
+
+2022-2023ஆம் ஆண்டு நமது பாடசாலையில் 315 மாணவர்கள் பயின்றார்கள் எனவே தமிழ் நாட்டில் வரும் ஜூன் மாதம் புதிய கல்வி ஆண்டில் நுழையவிருக்கும் குறைந்தது 300 மாணவர்களுக்கு உதவுவது என முடிவெடுக்கப்பட்டுள்ளது.
+
+நீங்கள் ஒரு மாணவரைத் தத்தெடுத்துக்கொள்வதின் மூலம் இனி வரும் ஒவ்வொரு ஆண்டும் அவருக்கான உபகரண செலவை ஏற்றுக்கொண்டு அவர்கள் தொடர்ந்து பள்ளி செல்வதை உறுதிப்படுத்த முடியும்.
+உங்களுக்கு விருப்பம் இருந்தால் அந்த மாணவருடனும், அவரின் குடும்பத்தோடும் நேரடியாகத் தொடர்பு ஏற்படுத்திக் கொடுக்கப்படும்.
+இதன்மூலம் மாணவருக்குப் பொருளாதார உதவி அழிப்பது மட்டுமின்றி அவரின் வளர்ச்சியில் ஆண்டு முழுவதும் தொடர்ந்து பயணிக்கும் வாய்ப்பும் கிடைக்கும்.
+நீங்கள் மாணவருடன் தொடர்புகொண்டு அவரை ஊக்குவிக்கவேண்டும் என்பது எங்களின் விருப்பம்.
+
+இங்கே கொடுக்கப்பட்டுள்ள இணைப்பில் சென்று எத்தனை மாணவர்களைத் தத்தெடுக்க விருப்பமோ அத்துணை மாணவர்களுக்கான நன்கொடையை வழங்கி இத்திட்டத்தில் கட்டாயம்
+தாங்கள் பங்கெடுக்க வேண்டும் என்று வேண்டி விரும்பிக் கேட்டுக்கொள்கின்றோம்.
+
+நன்றி
+வணக்கம்
+</pre>
+</BR></BR></BR></BR></BR>
+{% endblock %}
+

@@ -1,0 +1,45 @@
+Dear {{parent_primary}}{% if parent_secondary %} & {% endif %}{{parent_secondary }},
+<p>
+
+{% if is_new %}
+Welcome to {{ school_name }}.
+{% else %}
+Welcome back to {{ school_name }}. Thanks for your continuous support.
+{% endif %}
+This is to acknowledge for the academic year {{ academic_year_label }}.
+Note: Parent(s) willing to volunteer for teaching would be given preference.
+
+If you have any questions or issues please create a service request https://myaps.avvaiyarpadasalai.org/service_request_create
+</p>
+
+<table border="1">
+    <tr>
+        <th>Student Name</th><th>Enrollment Status</th><th>Enrollment Type</th>
+    </tr>
+{% for enroll in enrolls %}
+    <tr>
+        <td>{{ enroll["student_name"]}}</td><td>{{enroll["enrollment_status"]}}</td><td>{{enroll["enrollment_type"]}}</td>
+    </tr>
+{% endfor %}
+</table>
+<p></p>
+
+Please read the rules and regulations in the below link.
+<br/>
+https://www.avvaiyarpadasalai.org
+<p></p>
+The school opening date is 06-Sep-2024 [Tentative].
+br/>
+<p></p>
+
+Your enrollment will be confirmed once your payment is received. Please pay through MyAPS at https://myaps.avvaiyarpadasalai.org/mypayment
+<p></p>
+The course details can be found in the below link.
+<br/>
+https://www.americantamilacademy.org/?page_id=12
+<p></p>
+{% if is_new %}
+One of our team members might be reaching you out in case of evaluation is required to place your kid(s) in the right level. The minimum age for enrollment is 4 years as of December 31st, {{ session['ACADEMIC_YEAR'] }}.
+{% endif %}
+<p></p>
+{% include 'email/mail_footer.html' %}

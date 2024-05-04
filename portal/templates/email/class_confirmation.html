@@ -1,0 +1,45 @@
+Dear {{parent_primary}}{% if parent_secondary %} & {% endif %}{{parent_secondary }},
+<p>
+Please find below the updated class details.
+</p>
+
+<table border="1">
+    <tr>
+        <td> Student Name  </td><th> {{ users["student_name"]}} </th>
+    </tr>
+    <tr>
+        <td> Nilai  </td><th> {{users["nilai_name"]}} </th>
+    </tr>
+    <tr>
+        <td> Section  </td><th> {{users["section"]}} </th>
+    </tr>
+    <tr>
+        <td> Room #  </td><th> {{users["room"]}} </th>
+    </tr>
+    <tr>
+        <td> Teacher 1  </td><th> {{users["teacher1"]}} </th>
+    </tr>
+    <tr>
+        <td> Teacher 2  </td><th> {{users["teacher2"]}} </th>
+    </tr>
+    <tr>
+        <td> Payment Status  </td><th> {{users["payment_status"]}} </th>
+    </tr>
+    <tr>
+        <td> Book Delivered </td><th> {{users["book_status"]}} </th>
+    </tr>
+
+</table>
+
+<p>As scheduled, lessons started from October 9th 2020. Online meeting details will be sent by class teachers prior to the class.
+</p>
+Please read the rules and regulations in the below link.
+<br/>
+http://sbtamilschool.org/terms-of-service
+<p></p>
+Below is the calendar for entire academic year.
+<br/>
+https://www.avvaiyarpadasalai.org/SY2021/Calendar2021
+<p></p>
+
+{% include 'email/mail_footer.html' %}

@@ -1,0 +1,18 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+
+<title>{{ title }}</title>
+<h3>{{ title }}</h3>
+
+{% for key, section in section_dict.items() %}
+    <a href="{{ url_for('homework.homework_status', section=key , type=type) }}"> {{section}} </a>&nbsp;&nbsp;
+{% endfor %}
+<p></p>
+
+{{ table }}
+<p>
+Total Lessons / Weeks : {{ rowcount }}
+</p>
+{% endblock %}
+

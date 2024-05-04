@@ -1,0 +1,15 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+
+<h1>{{title}}</h1>
+<h4>Total Request(s): {{prize_rowcount}}</h1>
+<p></p><p></p><p></p><p></p><p></p><p></p>
+{% if prize_rowcount > 0 %}
+   {{prize_table}}
+{% else %}
+    <p style="color:#0000FF";><b> No  Prize distribution request(s) at this time. </b></p> </p>
+{% endif %}
+
+<p></p><p></p><p></p>
+{% endblock %}

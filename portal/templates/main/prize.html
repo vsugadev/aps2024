@@ -1,0 +1,34 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+
+<h2>Prize Distribution - Request</h2>
+
+<form action="" method="POST" class="form" role="form" onSubmit="return confirm('Are you sure to submit the prize distribution request?');">
+  <div class="row">
+    {% from "common/form_macros.html" import render_field, render_submit_field %}
+    <div class="col-sm-6 col-md-5 col-lg-4">
+    {{ form.hidden_tag() }}
+    {{ render_field(form.winner_name, size=72 ) }}
+    {{ render_field(form.winner_email, size=72 ) }}
+    {{ render_field(form.parent_email, size=72 ) }}
+    {{ render_field(form.winner_place) }}
+    {{ render_field(form.prize_amount) }}
+    <BR/>
+
+    {{ render_submit_field(form.submit ) }}
+    </div>
+  </div>
+</form>
+
+<p></p><p></p><p></p><p></p><p></p><p></p>
+
+<h3>Prize Request(s) Summary</h3>
+<h4>Total Request(s): {{prize_rowcount}}</h3>
+<p></p><p></p><p></p><p></p><p></p><p></p>
+{% if prize_rowcount > 0 %}
+   {{prize_table}}
+{% else %}
+    <p style="color:#0000FF";><b> No  Prize distribution request(s) at this time. </b></p> </p>
+{% endif %}
+{% endblock %}

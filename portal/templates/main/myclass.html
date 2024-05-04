@@ -1,0 +1,24 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+
+<title>{{ title }}</title>
+<h3>{{ title }}</h3>
+
+{% for key, section in section_dict.items() %}
+    <a href="{{ url_for('class_management.myclass', mode='view', section=key ) }}"> {{section}} </a>&nbsp;&nbsp;
+{% endfor %}
+<p></p>
+
+{% if rowcount > 0 %}
+    {{ table }}
+    <p>Count: {{ rowcount }} </p>
+    <BR/>
+    <p><a href="{{ url_for('class_management.myclass', mode='csv', section=section) }}">Download Class List</a></p>
+
+{% else %}
+    <p style="color:#FF0000";><b> No Information Found </b></p> </p>
+{% endif %}
+
+{% endblock %}
+

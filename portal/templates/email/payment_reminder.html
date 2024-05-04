@@ -1,0 +1,21 @@
+Dear {{parent_primary}}{% if parent_secondary %} & {% endif %}{{parent_secondary }},
+<p>
+This is a payment reminder for the acedamic year {{ academic_year_label }}. Thank you for completing enrollment and your payment is pending. Your enrollment will be confirmed upon receving the payment. Below is the payment status.
+</p>
+
+<table border="1">
+    <tr>
+        <th>Student Name</th><th>Starting Year</th><th>Nilai</th><th>Enrollment Status</th><th>Due Amount</th><th>Paid Amount</th><th>Balance</th>
+    </tr>
+{% for user in users %}
+    <tr>
+        <td>{{ user["student_name"]}}</td><td>{{ user["start_year"]}}</td><td>{{user["nilai_name"]}}</td><td>{{user["enrollment_status"]}}</td><td>{{user["due_amount"]}}</td><td>${{user["paid_amount"]}}</td><td>${{user["due_amount"] - user["paid_amount"]}}</td>
+    </tr>
+
+{% endfor %}
+</table>
+<p>
+Requesting you to pay ASAP through our portal using Paypal. Please feel free to reach out us in case of any questions.
+</p>
+
+{% include 'email/mail_footer.html' %}

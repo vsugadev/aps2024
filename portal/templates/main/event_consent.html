@@ -1,0 +1,32 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<h1>Parent Consent Form</h1>
+
+{% from "common/_formhelpers.html" import render_field %}
+
+<p><a href="{{ url_for('event.myevent') }}">My Events</a></p>
+
+<form action="" method="POST" class="form" role="form">
+<form method=post>
+  <div class="row">
+    <div class="col-sm-6 col-md-5 col-lg-4">
+    <p><b>As this is a virtual event, the program content will be streamed using social media (YouTube & Facebook). </b></p>
+
+    <p><b>I hereby give my consent to Kumarasamy Tamil School for streaming the program content of my child/children using social media. </b></p>
+    <p></p>
+    {{ render_field(form.student_names ,size=40 ) }}
+    <p></p>
+    {{ render_field(form.consent_signed_by , size=40 ) }}
+    <p></p>
+    {{ render_field(form.consent_dated) }}
+    <p></p>
+    {{ render_field(form.is_consent_signed) }}
+    <p></p>
+
+    {{ render_field(form.submit) }}
+    </div>
+  </div>
+</form>
+
+{% endblock %}

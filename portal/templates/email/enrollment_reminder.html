@@ -1,0 +1,25 @@
+Dear {{parent_primary}}{% if parent_secondary %} & {% endif %}{{parent_secondary }},
+<p>
+This is a reminder for enrolling your kid(s) for the academic year {{ academic_year_label }}. Our record indicates that you have not completed the enrollment. As we have started preparations for starting our classes from September 12th, 2020, we have to order books by this week, so that it will be delivered prior to starting the classes. Also your timely enrollment helps us to assign your kid in the right class.
+</p>
+
+<table border="1">
+    <tr>
+        <th>Student Name</th><th>Starting Year</th><th>Nilai</th><th>Enrollment Status</th>
+    </tr>
+{% for user in users %}
+    <tr>
+        <td>{{ user["student_name"]}}</td><td>{{ user["start_year"]}}</td><td>{{user["nilai_name"]}}</td><td>{{user["enrollment_status"]}}</td>
+    </tr>
+
+{% endfor %}
+</table>
+
+<p>
+<b style="color:#FF0000";>
+Requesting you to enroll by August 22nd using our portal. For some reason, if you are willing to discontinue classes, please confirm in the portal.</b> This will help us for our planning as well as you will be removed from the future reminder notificatios.
+</p>
+<p>Thanks in advance for your cooperations</p>
+</BR>
+
+{% include 'email/mail_footer.html' %}

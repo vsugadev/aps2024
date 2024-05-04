@@ -1,0 +1,44 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+
+
+<title>{{ title }}</title>
+<h2>{{ title }}</h2>
+{% from "common/form_macros.html" import render_field, render_submit_field %}
+
+<form action="/profile_update" method="POST" class="form" name="profile_update">
+
+    <table border="3">
+        <tr>
+            <th> Parent Name #1</th>
+            <th> Parent Name #2</th>
+            <th> Primary Email </th>
+            <th> Secondary Email</th>
+            <th> Primary Phone</th>
+            <th> Secondary Phone</th>
+            <th> Role</th>
+
+        </tr>
+        {% for form in form.profile %}
+            <tr>
+                {{form.id}}
+                {{form.role_previous}}
+
+                <td>{{ form.father_name( size=12 ) }} </td>
+                <td>{{ form.mother_name( size=12) }}</td>
+                <td>{{ form.email( size=15) }}</td>
+                <td>{{ form.email2( size=15) }}</td>
+                <td>{{ form.phone1( size=10) }}</td>
+                <td>{{ form.phone2( size=10) }}</td>
+                <td>{{ form.role(size=1) }}</td>
+
+            </tr>
+        {% endfor %}
+    </table>
+    Count: {{ count }}
+    </p>
+    <p>{{ render_submit_field(form.submit) }}</p>
+</form>
+
+{% endblock %}

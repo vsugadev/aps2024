@@ -1,0 +1,78 @@
+{% extends 'flask_user/_public_base.html' %}
+
+{% block content %}
+{% from "flask_user/_macros.html" import render_field, render_checkbox_field, render_submit_field %}
+<!--
+    <h3><marquee> <a href="https://www.avvaiyarpadasalai.org/SY2024/aps-class-open-slot" target="_blank">Open Slots</a> for Academic Year 2023-24 </marquee></h3>
+
+<h4> Current/Existing APS students are AUTO enrolled for the Academic Year 2024-25.<br> Please make the payments from payments menu. <br><br> New Students are required to enrollment and go through the screening process after enrollment.</h4>
+-->
+
+<h4> Existing APS students are <span style="background-color:#FFFF00;">AUTO ENROLLED</span> for the Academic Year 2024-25.</h4>
+
+<h4><span style="background-color:#FFFF00;">Enrollment is NOT required for existing APS Students</span>.&nbsp;Please Login to APS and make the payments from Payments Menu.</h4>
+
+
+<h1>{%trans%}Sign in{%endtrans%}</h1>
+<form action="" method="POST" class="form" role="form">
+    {{ form.hidden_tag() }}
+
+    {# Username or Email field #}
+    {% set field = form.username if user_manager.USER_ENABLE_USERNAME else form.email %}
+    <div class="form-group {% if field.errors %}has-error{% endif %}">
+        {# Label on left, "New here? Register." on right #}
+        <div class="row">
+            <div class="col-xs-5">
+                <label for="{{ field.id }}" class="control-label">{{ field.label.text }}</label>
+            </div>
+            <!-- As per principal direction. Closing the registration as 27th Sep 2021 -->
+            <div class="col-xs-7 text-right">
+                {% if user_manager.USER_ENABLE_REGISTER and not user_manager.USER_REQUIRE_INVITATION %}
+                    <a href="{{ url_for('user.register') }}" tabindex='190'>
+                        {%trans%}For new enrollment, Register here.{%endtrans%}</a>
+                {% endif %}
+            </div>
+        </div>
+        {{ field(class_='form-control', tabindex=110) }}
+        {% if field.errors %}
+            {% for e in field.errors %}
+                <p class="help-block">{{ e }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    {# Password field #}
+    {% set field = form.password %}
+    <div class="form-group {% if field.errors %}has-error{% endif %}">
+        {# Label on left, "Forgot your Password?" on right #}
+        <div class="row">
+            <div class="col-xs-6">
+                <label for="{{ field.id }}" class="control-label">{{ field.label.text }}</label>
+            </div>
+            <div class="col-xs-6 text-right">
+                {% if user_manager.USER_ENABLE_FORGOT_PASSWORD %}
+                    <a href="{{ url_for('user.forgot_password') }}" tabindex='195'>
+                        {%trans%}Forgot your Password?{%endtrans%}</a>
+                {% endif %}
+            </div>
+        </div>
+        {{ field(class_='form-control', tabindex=120) }}
+        {% if field.errors %}
+            {% for e in field.errors %}
+                <p class="help-block">{{ e }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    {# Remember me #}
+    {% if user_manager.USER_ENABLE_REMEMBER_ME %}
+    {{ render_checkbox_field(login_form.remember_me, tabindex=130) }}
+    {% endif %}
+
+    {# Submit button #}
+    {{ render_submit_field(form.submit, tabindex=180) }}
+
+    <h4><span style="background-color:#00FFFF;">New Students are required to enrollment and go through the screening process after enrollment.</span></h4>
+</form>
+
+{% endblock %}

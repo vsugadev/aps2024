@@ -1,0 +1,52 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+
+<title> {{title}} </title>
+
+{% if mode in ["show_attend", "show_homework", "show_term"] %}
+    {% if view == 1 %}
+        <p><a href="{{ url_for('grade.summary_score') }}">Evaluation Summary</a></p>
+    {% elif view == 2 %}
+        <p><a href="{{ url_for('search', mode='score') }}">Score Report</a></p>
+    {% elif view in (5, 6) %}
+        <p><a href="{{ url_for('exam.exam_dashboard') }}">Trimester Dashboard </a></p>
+    {% else %}
+        <p><a href="{{ url_for('grade.myevaluation') }}">Evaluations</a></p>
+    {% endif %}
+{% elif mode == "class_list" %}
+    <p><a href="{{ url_for('class_management.class_edit', section=0) }}">Add Class</a></p>
+{% elif mode == "myclass" %}
+    <p>My Class List</p>
+{% elif mode == "myenrollment" %}
+    <p>My Enrollment</p>
+<!--
+    <p><a href="{{ url_for('enrollment.student_edit', id=0) }}">Enroll New Student</a></p>
+-->
+{% elif mode == "mypayment" %}
+    <p>My Payment Details</p>
+{% else %}
+    <p><a href="{{ url_for('search', mode=mode) }}">Search Students</a></p>
+{% endif %}
+
+<h3> {{title}} </h3>
+
+{% if mode == "show_term" %}
+    {% for table in tables %}
+        {{ table|safe }}
+    {% endfor %}
+
+    {% if view in (5, 6) %}
+        <p>Count: {{ rowcount }}</p>
+    {% endif %}
+    </br>
+    <p style="color:#0000FF";>* PTM - Parent Teacher Meeting</p>
+
+{% else %}
+    {{ table }}
+    Count: {{ rowcount }}
+
+{% endif %}
+
+{% endblock %}
+

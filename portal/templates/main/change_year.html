@@ -1,0 +1,19 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<h3>Change Academic Year</h3>
+
+{% from "common/_formhelpers.html" import render_field %}
+
+<form action="" method="POST" class="form" role="form">
+<form method=post>
+  <div class="row">
+    <div class="col-sm-6 col-md-5 col-lg-4">
+    {{ render_field(form.year) }}
+    {{ render_field(form.submit) }}
+
+    </div>
+  </div>
+</form>
+
+{% endblock %}

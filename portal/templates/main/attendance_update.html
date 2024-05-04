@@ -1,0 +1,38 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<p><a href="{{ url_for('attendance.attendance_status') }}">Attendance Status</a></p>
+<title>{{ title }}</title>
+<h3>{{ title }}</h3>
+{% from "common/form_macros.html" import render_field, render_submit_field %}
+
+<form action="/attendance_update" method="POST" class="form" name="attendance_update">
+
+    <table border="3">
+        <tr>
+            <th> Student Name </th>
+            <th> Attendance </th>
+            <th> Note </th>
+
+        </tr>
+        {% for attendance_form in form.attendance %}
+            <tr>
+                {{attendance_form.school_date}}
+                {{attendance_form.enrollment_id}}
+                {{attendance_form.attendance_status_previous}}
+                {{attendance_form.note_previous}}
+                {{attendance_form.section}}
+
+                <td>{{ attendance_form.student_name(size=20) }}</td>
+                <td>{{ attendance_form.attendance_status(size=50, style = 'display: inline-block'  ) }}</td>
+                <td>{{ attendance_form.note(size=25) }}</td>
+
+            </tr>
+        {% endfor %}
+    </table>
+    Count: {{ count }}
+    </p>
+    <p>{{ render_submit_field(form.submit) }}</p>
+</form>
+
+{% endblock %}

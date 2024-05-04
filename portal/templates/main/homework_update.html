@@ -1,0 +1,50 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<p><a href="{{ url_for('homework.homework_status') }}">Homework</a></p>
+<title>{{ title }}</title>
+<h2>{{ title }}</h2>
+<h3>{{ sub_title }}</h3>
+
+{% from "common/form_macros.html" import render_field, render_submit_field %}
+
+<form action="/homework_update" method="POST" class="form" name="homework_update">
+
+    <table>
+        <tr>
+            <td><b>Completion Date : </b></td>
+            <td>{{ render_field(form.homework_date) }} </td>
+            <td> </td>
+            <td>{{ form.homework_date_previous }} </td>
+        </tr>
+    </table>
+
+    <table border="3">
+        <tr>
+            <th> Student Name </th>
+            <th> Completed ?</th>
+            <th> Note </th>
+        </tr>
+        {% for homework_form in form.homework %}
+            <tr>
+                {{homework_form.enrollment_id}}
+                {{homework_form.homework_type}}
+                {{homework_form.homework_status_previous}}
+                {{homework_form.homework_score_previous}}
+                {{homework_form.note_previous}}
+                {{homework_form.section}}
+                {{homework_form.lesson_no}}
+
+                <td>{{ homework_form.student_name( size=30) }}</td>
+                <td><center>{{ homework_form.homework_status( size=8 ) }}</center></td>
+                <td>{{ homework_form.note( size=40 ) }}</td>
+
+            </tr>
+        {% endfor %}
+    </table>
+    Count: {{ count }}
+    </p>
+    <p>{{ render_submit_field(form.submit) }}</p>
+</form>
+
+{% endblock %}

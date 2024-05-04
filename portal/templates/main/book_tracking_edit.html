@@ -1,0 +1,36 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<h3>Book Order Tracking</h3>
+
+{% from "common/_formhelpers.html" import render_field %}
+<p><a href="{{ url_for('book_order.book_order') }}">Order Tracking</a></p>
+
+<form action="" method="POST" class="form" role="form">
+<form method=post>
+  <div class="row">
+    <div class="col-sm-6 col-md-5 col-lg-4">
+    {{ form.order_id }}
+    {{ render_field(form.type) }}
+    {{ render_field(form.order_date) }}
+    {{ render_field(form.order_status) }}
+
+    {{ render_field(form.nilai_A, size = 2 ) }}
+    {{ render_field(form.nilai_0, size = 2 ) }}
+    {{ render_field(form.nilai_1, size = 2 ) }}
+    {{ render_field(form.nilai_2, size = 2 ) }}
+    {{ render_field(form.nilai_3, size = 2 ) }}
+    {{ render_field(form.nilai_4, size = 2 ) }}
+    {{ render_field(form.nilai_5, size = 2 ) }}
+    {{ render_field(form.nilai_6, size = 2 ) }}
+    {{ render_field(form.nilai_7, size = 2 ) }}
+    {{ render_field(form.nilai_8, size = 2 ) }}
+
+    {{ render_field(form.note, size = 20 ) }}
+
+    {{ render_field(form.submit) }}
+    </div>
+  </div>
+</form>
+
+{% endblock %}

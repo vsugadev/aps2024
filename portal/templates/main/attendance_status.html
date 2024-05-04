@@ -1,0 +1,43 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+
+{% if view == 'tracking' %}
+    {% if mode == 1 %}
+        <a href="{{ url_for('class_tracking.class_tracking_status', section=section, view=1) }}"> Class Progress Details</a>
+    {% elif mode == 2 %}
+        <a href="{{ url_for('class_tracking.class_tracking_status',section=section ) }}"> Class Progress Summary</a>
+    {% elif mode in (3, 4) %}
+        <a href="{{ url_for('class_tracking.class_tracking_dashboard') }}"> Class Progress Dashboard </a>
+    {% endif %}
+
+{% endif %}
+
+<title> {{title}}</title>
+<h3>{{title}}</h3>
+
+{% if view == 'attendance' %}
+    {% for key, section in section_dict.items() %}
+        <a href="{{ url_for('attendance.attendance_status', section=key) }}"> {{section}} </a>&nbsp;&nbsp;
+    {% endfor %}
+    <p></p>
+{% else %}
+    {% if mode == 1 %}
+        {% for key, section in section_dict.items() %}
+            <a href="{{ url_for('class_tracking.class_tracking_status', section=key) }}"> {{section}} </a>&nbsp;&nbsp;
+        {% endfor %}
+    {% elif mode == 2 %}
+        {% for key, section in section_dict.items() %}
+            <a href="{{ url_for('class_tracking.class_tracking_status', section=key, view=1) }}"> {{section}} </a>&nbsp;&nbsp;
+        {% endfor %}
+    {% endif %}
+    <p></p>
+{% endif %}
+
+{{ table|safe }}
+
+<p>
+Total Class Days : {{ rowcount }}
+</p>
+{% endblock %}
+

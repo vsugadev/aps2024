@@ -1,0 +1,18 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<h2>Teacher(s) Feedback - Academic Year 2022-2023</h2>
+<BR/>
+
+{% if feedback_rowcount > 0 %}
+    <p>Total feedback(s): {{feedback_rowcount}}</p>
+    <p></p>
+    <p></p>
+    {{ feedback_table }}
+{% else %}
+    <p style="color:#0000FF";><b> You have no feedback at this time. </b></p> </p>
+{% endif %}
+
+<p></p>
+
+{% endblock %}

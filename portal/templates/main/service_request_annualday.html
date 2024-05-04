@@ -1,0 +1,13 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<p>
+<a href="{{ url_for('service_request.summary_page', view=0) }}"> Help Desk Home </a> &nbsp; | &nbsp;
+<a href="{{ url_for('service_request.annualday_rules_page') }}"> Rules and Guidelines </a>
+</p>
+<h2>Annual Day - Registration</h2>
+
+<p style="color:#0000FF";>Registration is now closed </p>
+<br/>
+
+{% endblock %}

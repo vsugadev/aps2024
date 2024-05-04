@@ -1,0 +1,68 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+{% if mode == 1 %}
+    <p><a href="{{ url_for('class_tracking.class_tracking_dashboard') }}">Class Progress Dashboard</a></p>
+{% else %}
+    <p><a href="{{ url_for('class_tracking.class_tracking_status') }}">Class Progress</a></p>
+{% endif %}
+
+<h3>{{section}} Class Progrss for {{school_date}} </h3>
+
+{% from "common/_formhelpers.html" import render_field %}
+<form action="" method="POST" class="form" role="form">
+  <div class="row">
+    <div class="col-sm-6 col-md-5 col-lg-4">
+
+        {{ form.hidden_tag() }}
+        <B>Actual Class Date & Time : *</B></BR>
+        {{ form.class_date }} &nbsp;&nbsp;
+        {{ form.class_start_time }}
+        <B>To</B>
+        {{ form.class_end_time }}
+        </BR></BR><B>Class Taken By : *</B></BR>
+        {{ form.teacher1_id }}
+        <B> &nbsp;&&nbsp; </B>
+        {{ form.teacher2_id }}
+
+        {{ render_field(form.substitute_teacher, size = 25 )  }}
+        {{ render_field(form.lesson_no ) }}
+        {{ render_field(form.class_activities, cols="60", rows="3" ) }}
+
+        {{ render_field(form.homework_paper, cols="60", rows="2" ) }}
+        {{ render_field(form.homework_audio, cols="60", rows="2" ) }}
+
+        {{ render_field(form.note_to_parents, cols="60", rows="2" ) }}
+        {{ render_field(form.note_to_admin, cols="60", rows="2" ) }}
+        {{ render_field(form.volunteers_present, size = 40 ) }}
+        {{ render_field(form.volunteers_activities, cols="60", rows="2" ) }}
+        {{ render_field(form.is_email_sent ,  disabled=True ) }}
+        {{ render_field(form.email_sent_date, size = 8 , disabled=True )}}
+
+        {% if mode == 1 %}
+            {{ render_field(form.note_from_admin, cols="60", rows="2" ) }}
+        {% else %}
+            {{ render_field(form.note_from_admin, cols="60", rows="2", disabled=True ) }}
+        {% endif %}
+
+        <BR/>
+        {% if locked %}
+            <p style="color:#0000FF";><b>Report had already been published to parents, cannot be edited now</b></p> </p>
+        {% else %}
+            {{ form.save }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {% if mode == 0 %}
+                {{ form.email }}
+                </BR>
+                </BR>
+                <p style="color:#0000FF";>Click <b>Publish</b> to email class updates to parents</p></p>
+            {% else %}
+                <p style="color:#0000FF";>Only <b>Response From Admin Team</b> info can be updated</p></p>
+            {% endif %}
+        {% endif %}
+
+    </div>
+  </div>
+</form>
+
+{% endblock %}
+

@@ -1,0 +1,77 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<p><a href="{{ url_for('exam.search_exam') }}">Trimester</a></p>
+<title>{{ title }}</title>
+<h2>{{ title }}</h2>
+{% from "common/form_macros.html" import render_field, render_submit_field %}
+
+{% for key, section in section_dict.items() %}
+    <a href="{{ url_for('exam.exam_status', section=key, term=term) }}"> {{section}} </a>&nbsp;&nbsp;
+{% endfor %}
+<p></p>
+
+<form action="/exam_update" method="POST" class="form" name="exam_update">
+    <table>
+        <tr>
+            <td><b>Exam Date : </b></td>
+            <td>{{ render_field(form.exam_date) }}</td>
+            <td></td>
+            <td> {{form.exam_date_previous}}</td>
+        </tr>
+    </table>
+    <table border="3">
+        <tr>
+            <th> Section </th>
+            <th> Student Name </th>
+            <th> Oral</br> Exam </th>
+            <th> Written</br> Exam </th>
+            <th> Total</br> Score </th>
+            <th> Listening </th>
+            <th> Speaking </th>
+            <th> Reading </th>
+            <th> Writing </th>
+            <th> Teachers' Feedback</th>
+            <th> PTM *</br> Completed? </th>
+            <th> PTM *</br> Completed</br> Date</th>
+        </tr>
+        {% for exam_form in form.exam %}
+            <tr>
+                {{exam_form.enrollment_id}}
+                {{exam_form.trimester_id}}
+                {{exam_form.exam_score_previous}}
+                {{exam_form.written_score_previous}}
+                {{exam_form.oral_score_previous}}
+                {{exam_form.note_previous}}
+                {{exam_form.listening_eval_previous}}
+                {{exam_form.speaking_eval_previous}}
+                {{exam_form.reading_eval_previous}}
+                {{exam_form.writing_eval_previous}}
+                {{exam_form.is_ptm_completed_previous}}
+                {{exam_form.ptm_completed_date_previous}}
+
+                <td style="vertical-align:top"> {{exam_form.section( size=2, disabled=True ) }} </td>
+                <td style="vertical-align:top"> {{ exam_form.student_name( size=18, disabled=True ) }}</td>
+                <td style="vertical-align:top"> {{ exam_form.oral_score( size=2 ) }}</td>
+                <td style="vertical-align:top"> {{ exam_form.written_score( size=2 ) }}</td>
+                <td style="vertical-align:top"> {{ exam_form.exam_score( size=2, disabled=True ) }}</td>
+                <td style="vertical-align:top"> {{ exam_form.listening_eval( size=1) }}</td>
+                <td style="vertical-align:top"> {{ exam_form.speaking_eval( size=1) }}</td>
+                <td style="vertical-align:top"> {{ exam_form.reading_eval( size=1) }}</td>
+                <td style="vertical-align:top"> {{ exam_form.writing_eval( size=1) }}</td>
+                <td style="vertical-align:top"> {{ exam_form.note( cols="40", rows="3" )}}</td>
+                <td style="text-align:center; vertical-align:top">{{ exam_form.is_ptm_completed( size=5 ) }}</td>
+                <td style="vertical-align:top"> {{ exam_form.ptm_completed_date( size=1 ) }}</td>
+
+            </tr>
+        {% endfor %}
+    </table>
+    Count: {{ count }}
+    </p>
+    <p>{{ render_submit_field(form.submit) }}</p>
+</form>
+
+</br>
+<p style="color:#0000FF";>* PTM - Parent Teacher Meeting</p>
+
+{% endblock %}

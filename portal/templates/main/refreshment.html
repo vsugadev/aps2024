@@ -1,0 +1,30 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<h1>Refreshment Sign-up</h1>
+<p><b>Please provide your preferences</b></p>
+{% from "common/_formhelpers.html" import render_field %}
+<form action="" method="POST" class="form" role="form">
+<form method=post>
+  <div class="row">
+    <div class="col-sm-6 col-md-5 col-lg-4">
+    {{ form.academic_year}}
+    {{ form.event_id}}
+    {{ form.user_id}}
+    {{ form.status}}
+
+    {{ render_field(form.adult_1 ) }}
+    {{ render_field(form.adult_2 ) }}
+    {{ render_field(form.child_1 ) }}
+    {{ render_field(form.child_2 ) }}
+    {% if admin_mode == True %}
+        {{ render_field(form.child_3 ) }}
+    {% endif %}
+    {{ render_field(form.pickup_city) }}
+    {{ render_field(form.note, cols="60", rows="2") }}
+<!--    {{ render_field(form.submit) }} --!>
+    </div>
+  </div>
+</form>
+
+{% endblock %}

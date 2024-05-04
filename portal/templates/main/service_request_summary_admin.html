@@ -1,0 +1,67 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<p>
+<a href="{{ url_for('service_request.annualday2022_admin_page') }}"> Annual Day</a> |
+<a href="{{ url_for('service_request.admin_page', view=2) }}"> Enrollments </a> |
+{% if view == 0 %}
+<a href="{{ url_for('service_request.admin_page', view=1) }}"> Service Request(s) - Closed </a>
+{% else %}
+<a href="{{ url_for('service_request.admin_page', view=0) }}"> Service Request(s) - Open </a>
+{% endif %}
+</p>
+
+<h1>Service Request(s)</h1>
+
+<p></p><p></p>
+
+{% if rowcount > 0 %}
+    <p style="color:#0000FF";>{{ pagination.info }}</b></p> </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Service #</th>
+          <th style="width:175px">Created By</th>
+          <th style="width:150px">Type</th>
+          <th>Description</th>
+          <th>Created On</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for request in requests %}
+          <tr>
+            <td align="center">{{ request.service_id }}</td>
+            <td>{{ request.created_by }}</td>
+            <td >{{ request.service_type }}</td>
+            <td style="width:600px">{{ request.service_description }}</td>
+            <td>{{ request.created_at }}</td>
+            {% if request.status == 1 %}
+                <td align="center" style="color:#FF0000">Closed</td>
+            {% else %}
+                <td align="center" style="color:#0000FF"> <a href="{{ url_for('service_request.update_page', id=request.service_id)}}"> Open </a></td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p></p>
+
+    <p></p>
+    {{ pagination.links }}
+    <p></p>
+    <form action="" method="POST" class="form" role="form" onSubmit="return confirm('Are you sure to download service request(s)?');">
+        <div class="row">
+            {% from "common/form_macros.html" import render_field, render_submit_field %}
+            <div class="col-sm-6 col-md-5 col-lg-4">
+                {{ render_field(form.to_csv_service) }}
+                {{ render_submit_field(form.submit ) }}
+            </div>
+        </div>
+    </form>
+{% else %}
+    <p style="color:#0000FF";><b> No service request(s) at this time. </b></p> </p>
+{% endif %}
+
+{% endblock %}
+

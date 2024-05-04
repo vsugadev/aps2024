@@ -1,0 +1,18 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+
+<p>
+<a href="{{ url_for('service_request.summary_page', view=0) }}"> Help Desk Home </a>
+</p>
+<h1>My Request(s)</h1>
+</BR>
+
+{% if rowcount > 0 %}
+    {{ table }}
+{% else %}
+    <p style="color:#0000FF";><b> You have no service request(s) at this time. </b></p> </p>
+{% endif %}
+
+{% endblock %}
+

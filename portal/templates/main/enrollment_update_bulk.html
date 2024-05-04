@@ -1,0 +1,42 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<h2>Update Section</h2>
+{% from "common/form_macros.html" import render_field, render_submit_field %}
+<p><a href="{{ url_for('search', mode='bulk') }}">Search Students</a></p>
+<p>Make sure to update only section that defined in Class Allocation. The first letter is for Nilai and second letter is for section name</p>
+
+<form action="/enrollment_update_bulk" method="POST" class="form" name="enrollment_update_bulk">
+    <table border="3">
+        <tr>
+            <th>Nilai</th>
+            <th>Last Year</th>
+            <th>Student Name</th>
+            <th>Enrollment Status</th>
+            <th>Payment</th>
+            <th>Start Year</th>
+            <th>Gender</th>
+            <th>Grade</th>
+            <th>Section</th>
+        </tr>
+    {% for student_form in form.students %}
+        <tr>
+            {{student_form.enrollment_id() }}
+            <td>{{ student_form.nilai(size=2) }}</td>
+            <td>{{ student_form.last_year_class(size=4) }}</td>
+            <td>{{ student_form.student_name }}</td>
+            <td>{{ student_form.enrollment_status }}</td>
+            <td>{{ student_form.payment_status(size=6) }}</td>
+            <td>{{ student_form.start_year(size=6) }}</td>
+            <td>{{ student_form.sex(size=1) }}</td>
+            <td>{{ student_form.school_grade(size=2) }}</td>
+            <td>{{ student_form.section(size=20) }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    Count: {{ count }}
+    <p/>
+    <p>{{ render_submit_field(form.submit) }}</p>
+</form>
+
+{% endblock %}

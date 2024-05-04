@@ -1,0 +1,23 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<h1>School Year Edit</h1>
+
+{% from "common/_formhelpers.html" import render_field %}
+<p><a href="{{ url_for('rollover.school_year' )}}">School Year</a></p>
+<form action="" method="POST" class="form" role="form">
+<form method=post>
+  <div class="row">
+    <div class="col-sm-6 col-md-5 col-lg-4">
+    {{ render_field(form.academic_year, size = 6) }}
+    {{ render_field(form.academic_year_label, size = 12) }}
+    {{ render_field(form.start_date, size = 12) }}
+    {{ render_field(form.end_date, size = 12) }}
+    {{ render_field(form.school_day, size = 1) }}
+    {{ render_field(form.school_start_time, size = 10 ) }}
+    {{ render_field(form.submit) }}
+    </div>
+  </div>
+</form>
+
+{% endblock %}

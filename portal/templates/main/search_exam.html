@@ -1,0 +1,21 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+
+<title>{{ title }}</title>
+<h3>{{ title }}</h3>
+
+{% from "common/_formhelpers.html" import render_field %}
+
+<form action="" method="POST" class="form" role="form">
+
+<form method=post>
+    {{ form.csrf_token }}
+  <p>
+    {{ render_field(form.term) }}
+  </p>
+  <p><input type=submit value=Search></p>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+
+<h2>Search APSians</h2>
+
+<form action="" method="POST" class="form" role="form" onSubmit="return confirm('Are you sure to search?');">
+  <div class="row">
+    {% from "common/form_macros.html" import render_field, render_submit_field %}
+    <div class="col-sm-6 col-md-5 col-lg-4">
+    {{ form.hidden_tag() }}
+    {{ render_field(form.name, size=48 ) }}
+    <BR/>
+
+    {{ render_submit_field(form.submit ) }}
+    </div>
+  </div>
+</form>
+
+<p></p><p></p><p></p><p></p><p></p><p></p>
+
+{% if rowcount > 0 %}
+     {{table}}
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<p>
+<a href="{{ url_for('service_request.admin_page', view=0) }}"> Help Desk(Admin) </a>
+</p>
+
+<h1>Annual Day(2022) - Registration(s)</h1>
+<p></p> <p></p>
+
+<h3>Summary</h3>
+<table>
+      <thead>
+        <tr>
+          <th style="width:150px">AD01-MAATHIYOSI</th>
+          <th style="width:150px">AD02-ORUSOL</th>
+          <th style="width:150px">AD03-THIRUKURAL-AATHICHUDI</th>
+          <th style="width:200px">AD04-THAMIZHIL-URAIYADU-TEACHERS-ONLY</th>
+          <th style="width:150px">AD05-FANCYDRESS</th>
+          <th style="width:200px">AD06-THAMIZHODU_VILAYAADU</th>
+          <th style="width:150px">AD07-CLASS-EVENT</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td align="center">{{ ad01_count }}</td>
+            <td align="center">{{ ad02_count }}</td>
+            <td align="center">{{ ad03_count }}</td>
+            <td align="center">{{ ad04_count }}</td>
+            <td align="center">{{ ad05_count }}</td>
+            <td align="center">{{ ad06_count }}</td>
+            <td align="center">{{ ad07_count }}</td>
+          </tr>
+      </tbody>
+</table>
+
+<br/>
+<h3>Details</h3>
+{% if annualday_rowcount > 0 %}
+    <p style="color:#0000FF";>{{ annualday_pagination.info }}</b></p> </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Reg (#)</th>
+          <th>Registered By</th>
+          <th>Registered For</th>
+          <th>Registered Event(s)</th>
+          <th>Registered On</th>
+          <th>Comments</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for registration in registrations %}
+          <tr>
+            <td align="center">{{ registration.registration_id }}</td>
+            <td>{{ registration.email }}</td>
+            <td>{{ registration.student_email }}</td>
+            <td style="width:400px">{{ registration.events }}</td>
+            <td>{{ registration.created_at }}</td>
+            <td style="width:200px">{{ registration.comments }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p></p>
+
+    <p></p>
+    {{ annualday_pagination.links }}
+    <p></p>
+    <form action="" method="POST" class="form" role="form" onSubmit="return confirm('Are you sure to download registration(s)?');">
+        <div class="row">
+            {% from "common/form_macros.html" import render_field, render_submit_field %}
+            <div class="col-sm-6 col-md-5 col-lg-4">
+                {{ render_field(form.to_csv ) }}
+                {{ render_submit_field(form.submit_registrations ) }}
+            </div>
+        </div>
+    </form>
+{% else %}
+    <p style="color:#0000FF";><b> No  registration(s) for Annual Day 2022 at this time. </b></p> </p>
+{% endif %}
+
+<p></p><p></p><p></p>
+{% endblock %}

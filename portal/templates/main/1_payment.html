@@ -1,0 +1,63 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+
+<title>Payment </title>
+<h3>My Payment Details</h3>
+
+{% if rowcount > 0 %}
+    {{ table }}
+
+    <BR/>
+    <b>
+     Balance : $ {{ balance }}
+    </b>
+    <BR/>
+    {% if unconfirmed > 0 %}
+        <BR/>
+        <b><p style="color:#FF0000";>Enrollment is pending for {{ unconfirmed }} student(s), complete all enrollments before making payment</p></b>
+    {% endif %}
+    <BR/>
+{% if balance > 0 and unconfirmed == 0 %}
+    <div id="paypal-button"></div>
+
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+<script>
+    var CREATE_PAYMENT_URL  = "{{ url_for('paypal_payment') }}" ;
+    var EXECUTE_PAYMENT_URL = "{{ url_for('execute') }}" ;
+    var REDIRECT_PAYMENT_URL = "{{ url_for('confirm_payment') }}" ;
+
+    paypal.Button.render({
+        env: '{{ env }}' ,
+        commit: true, // Show a 'Pay Now' button
+
+        payment: function() {
+            return paypal.request.post(CREATE_PAYMENT_URL).then(function(data) {
+                return data.paymentID;
+            });
+        },
+
+        onAuthorize: function(data) {
+            return paypal.request.post(EXECUTE_PAYMENT_URL, {
+                paymentID: data.paymentID,
+                payerID:   data.payerID
+            }).then(function(res) {
+                alert("Payment success!");
+                location.href = REDIRECT_PAYMENT_URL ;
+                console.log(res.success)
+                // The payment is complete!
+                // You can now show a confirmation message to the customer
+            });
+        }
+
+    }, '#paypal-button');
+</script>
+{% endif %}
+
+{% else %}
+    <p style="color:#FF0000";><b> No Enrollment Found </b></p> </p>
+{% endif %}
+
+{% endblock %}
+

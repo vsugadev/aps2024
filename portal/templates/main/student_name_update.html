@@ -1,0 +1,43 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<title>{{ title }}</title>
+<h3>{{ title }}</h3>
+
+{% for key, section in section_dict.items() %}
+    <a href="{{ url_for('profile.name_list', section=key ) }}"> {{section}} </a>&nbsp;&nbsp;
+{% endfor %}
+<p></p>
+
+{% from "common/form_macros.html" import render_field, render_submit_field %}
+<form action="/name_update" method="POST" class="form" name="name_update">
+    <table border="3">
+        <tr>
+            <th> Section </th>
+            <th> Student Name </th>
+            <th> Student Name in Tamil </th>
+            <th> Student Age </th>
+            <th> Student's Email </th>
+            
+        </tr>
+        {% for student_form in form.students %}
+            <tr>
+                {{ student_form.student_id }}
+                {{ student_form.student_name_previous }}
+                {{ student_form.student_email_previous }}
+
+                <td>{{ student_form.section( size=20 ) }} </td>
+                <td>{{ student_form.student_name( size=25) }}</td>
+                <td>{{ student_form.student_name_tamil( size=25 ) }}</td>
+                <td>{{ student_form.student_age( size=25 )}}</td>
+                <td>{{ student_form.student_email( size=50 ) }}</td>
+
+            </tr>
+        {% endfor %}
+    </table>
+    Count: {{ count }}
+    </p>
+    <p>{{ render_submit_field(form.submit) }}</p>
+</form>
+
+{% endblock %}

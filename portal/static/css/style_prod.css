@@ -1,0 +1,14 @@
+
+body {  background-color: rgb(237, 252, 249);  }
+hr { border-color: rgb(204, 204, 204); margin: 0; }
+.no-margins { margin: 0px; }
+.with-margins { margin: 10px; }
+.col-centered { float: none; margin: 0 auto; }
+tr:nth-child(even){background-color: rgb(255, 255, 255);}
+tr:hover {background-color: rgb(221, 221, 221);}
+th {
+      text-align: left;
+      background-color: rgb(76, 175, 80);
+      color: white;
+    }
+

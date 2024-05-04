@@ -1,0 +1,26 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<p>
+<a href="{{ url_for('service_request.summary_page', view=0) }}"> Help Desk Home </a>
+</p>
+
+<h2>Service Request - New</h2>
+
+<form action="" method="POST" class="form" role="form" onSubmit="return confirm('Are you sure to submit the service request?');">
+  <div class="row">
+    {% from "common/form_macros.html" import render_field, render_submit_field %}
+    <div class="col-sm-6 col-md-5 col-lg-4">
+    {{ form.hidden_tag() }}
+    {{ render_field(form.email, size=48 ) }}
+    {{ render_field(form.created_for, size=48 ) }}
+    {{ render_field(form.service_type) }}
+    {{ render_field(form.service_description, size=50 ) }}
+    <BR/>
+
+    {{ render_submit_field(form.submit ) }}
+    </div>
+  </div>
+</form>
+
+{% endblock %}

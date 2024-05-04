@@ -1,0 +1,27 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+
+{% if mode == "event" %}
+    <p></p>
+{% else %}
+    <p>
+    <a href="{{ url_for('class_management.dashboard') }}"> Class </a>&nbsp;&nbsp;
+    <a href="{{ url_for('enrollment.enrollment_dashboard') }}"> Enrollment </a>&nbsp;&nbsp;
+    <a href="{{ url_for('class_tracking.class_tracking_dashboard') }}"> Class Progress </a> &nbsp;&nbsp;
+    <a href="{{ url_for('attendance.attendance_dashboard', type=1) }}"> Attendance </a>&nbsp;&nbsp;
+    <a href="{{ url_for('homework.homework_dashboard', type=1) }}"> Project </a>&nbsp;&nbsp;
+    <a href="{{ url_for('homework.homework_dashboard') }}"> Homework </a>&nbsp;&nbsp;
+    <a href="{{ url_for('exam.exam_dashboard') }}"> Trimester Exam </a>
+    </p>
+{% endif %}
+
+<title>{{ title }}</title>
+<h3>{{ title }}</h3>
+
+{{ table|safe }}
+<p>
+Total Students : {{ total }}
+</p>
+{% endblock %}
+

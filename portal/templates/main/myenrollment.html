@@ -1,0 +1,74 @@
+{% extends "flask_user_layout.html" %}
+{% from "common/form_macros.html" import render_field, render_submit_field %}
+
+{% block content %}
+
+<title>Enrollment</title>
+<p>My Enrollment</p>
+{% if mode =='current' %}
+    {% if count_previous > 0 %}
+        <p></p>
+        <p><a href="{{ url_for('enrollment.myenrollment', mode=1) }}">Enrollment - Previous Year(s) </a></p>
+    {% endif %}
+
+    {% if count_confirmed > 0 %}
+        <p></p>
+        <h3>Enrollment - Completed </h3>
+        {{ table_confirmed }}
+    {% endif %}
+    {% if count_unconfirmed > 0 %}
+        <p></p>
+        <h3> Enrollment - Not Completed</h3>
+        <form action="{{url_for ('enrollment.enrollment_confirm') }}" method="POST">
+            <table border="3">
+                <tr>
+                    <th> Student Name </th>
+                    <th> மாணவர் பெயர்           </th>
+                    <th> Gender</th>
+                    <th> School Grade</th>
+                    <th> Start Year</th>
+                    <th> Enrollment Status</th>
+                </tr>
+                {% for form in form.students %}
+                  <tr>
+                    {{form.enrollment_id}}
+                    <td>{{ form.student_name( size=15) }}</td>
+                    <td>{{ form.student_name_tamil( size=15) }}</td>
+                    <td>{{ form.sex(size=2 ) }}</td>
+                    <td>{{ form.school_grade(size=2 ) }}</td>
+                    <td>{{ form.start_year(size=4 ) }}</td>
+                    <td>{{ form.enrollment_status(size=1) }}</td>
+                  </tr>
+                {% endfor %}
+            </table>
+            {% if new_enroll %}
+                <BR/>
+                <p><a href="{{ url_for('enrollment.student_edit', id=0) }}">Enroll New Student</a></p>
+            {% endif %}
+            <BR/>
+            <p>{{ render_submit_field(form.submit) }}</p>
+        </form>
+    {% endif %}
+
+    {% if count_confirmed + count_unconfirmed == 0 %}
+        <p style="color:#FF0000";><b> No Enrollment Found </b></p> </p>
+    {% endif %}
+
+    {% if count_unconfirmed == 0 and new_enroll %}
+        <BR/>
+        <p><a href="{{ url_for('enrollment.student_edit', id=0) }}">Enroll New Student</a></p>
+    {% endif %}
+
+
+{% else %}
+    <p><a href="{{ url_for('enrollment.myenrollment') }}">Enrollment - Current Year</a></p>
+
+    {% if count_previous > 0 %}
+        <p></p>
+        <h3>Enrollment - Previous Year(s) </h3>
+        {{ table_previous }}
+    {% endif %}
+{% endif %}
+
+{% endblock %}
+

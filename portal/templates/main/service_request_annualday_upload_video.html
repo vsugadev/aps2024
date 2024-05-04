@@ -1,0 +1,62 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<p>
+<a href="{{ url_for('service_request.summary_page') }}"> Help Desk Home </a>
+</p>
+<h2>Annual Day 2022 - Upload your video(s)</h2>
+
+<p style="color:#0000FF";> File Name Format(*):</p>
+<p style="bold";>
+    <pre>
+        Format:
+            EVENT_ID-APS_EMAIL_ID.File_Extension
+        Example:
+            (*) AD05-APSEmailId.MOV
+            (*) AD07-APSEmailId.MP4
+    </pre>
+</p>
+<p style="color:#0000FF";> File Size(*):</p>
+<p style="bold";>
+    <pre>
+        Size:
+            (*) 300 MB max per file
+
+        Note:
+            (*) If the file size is more than 300 MB, please create a service request with the details or reach out to Annual Day 2022 event team.
+            (*) The Annual Day 2022 event team will review and approve it as appropriate
+    </pre>
+</p>
+<BR/>
+
+<form method="POST" enctype="multipart/form-data" role="form" onSubmit="return confirm('Are you sure to upload the file?')";>
+  <input type="file" name="uploaded_file" required/>
+  <input type="submit" value="Upload!"/>
+</form>
+<BR/>
+
+
+
+<h3>My video uploads</h3>
+{% if rowcount > 0 %}
+    <table>
+      <thead>
+        <tr>
+          <th style="width:150px">File Name</th>
+          <th style="width:150px">Uploaded Date</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for row in rows %}
+          <tr>
+            <td>{{ row.filename }}</td>
+            <td>{{ row.last_updated_at }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% else %}
+    <p style="color:#0000FF";>No video(s) uploaded at this time. </p>
+{% endif %}
+
+{% endblock %}

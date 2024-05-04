@@ -1,0 +1,31 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+<h2>School Calendar</h2>
+{% from "common/form_macros.html" import render_field, render_submit_field %}
+
+<form action="/calendar_update" method="POST" class="form" name="calendar_update">
+    <table border="3">
+        <tr>
+            <th> Saturdays </th>
+            <th> In Session </th>
+            <th> Attendance Required </th>
+            <th> Scheduled Activity </th>
+
+        </tr>
+        {% for calendar_form in form.calendar %}
+            <tr>
+                <td>{{ calendar_form.school_date }}</td>
+                <td>{{ calendar_form.is_session(size=1) }}</td>
+                <td>{{ calendar_form.attendance_required(size=1) }}</td>
+                <td>{{ calendar_form.note(size=20) }}</td>
+
+            </tr>
+        {% endfor %}
+    </table>
+    Count: {{ count }}
+    <p/>
+    <p>{{ render_submit_field(form.submit) }}</p>
+</form>
+
+{% endblock %}

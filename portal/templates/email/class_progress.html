@@ -1,0 +1,27 @@
+Dear Parents / Students,
+<p>
+Please find below the class updates for the session on {{ class_date }}.
+</p>
+<p>
+<b>Class Activities : </b></BR> {{ tracking["class_activities"] }}
+</p>
+<p>
+<b>Homework Assigned : </b> {{ tracking["homework_paper"] }}
+</p>
+<p>
+<b>Project  Assigned : </b> {{ tracking["homework_audio"] }}
+</p>
+
+{% if tracking["note_to_parents"] %}
+    <p><b>Note : </b> {{ tracking["note_to_parents"] }} </p>
+    </BR>
+{% endif %}
+
+<table border="0">
+<tr>நன்றி </tr>
+<tr> {{teachers}} </tr>
+<tr>{{section}} Class Teacher </tr>
+<tr>ஔவையார் பாடசாலை அமெரிக்கா </tr>
+<tr>உலகின் முதல் மெய்நிகர்த் தமிழ்ப்பள்ளி    </tr>
+<tr>https://www.avvaiyarpadasalai.org </tr>
+</table>

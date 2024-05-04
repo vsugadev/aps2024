@@ -1,0 +1,104 @@
+{% extends "flask_user_layout.html" %}
+
+{% block content %}
+
+{% if view >= 2 %}
+    <p><a href="{{ url_for('dashboard_event') }}"> Event Dashboard </a>
+{% endif %}
+
+<title>{{ title }}</title>
+<h2>{{ title }}</h2>
+{% from "common/form_macros.html" import render_field, render_submit_field %}
+
+<form action="/event_update" method="POST" class="form" name="event_update">
+
+    <table border="3">
+        <tr>
+            <th> Section </th>
+            <th> Student Name </th>
+            <th> Program</th>
+            <th> Mode</th>
+            <th> Duration</th>
+            <th> Note / Topic </th>
+            <th> Coordinator's Note </th>
+            <th> Ack </th>
+            {% if view == 3 %}
+                <th> Email-1 </th>
+                <th> Email-2 </th>
+                <th> Phone-1 </th>
+                <th> Phone-2 </th>
+            {% endif %}
+            <th> Signed </th>
+            <th> Signed Date </th>
+            {% if view == 0 %}
+                <th> Sign </th>
+            {% endif %}
+
+        </tr>
+        {% for form in form.event %}
+            <tr>
+                {{form.enrollment_id}}
+                {{form.event_id}}
+                {{form.event_type}}
+                {{form.academic_year}}
+                {{form.program_id_previous}}
+                {{form.mode_previous}}
+                {{form.duration_previous}}
+
+                {{form.note_previous}}
+                {{form.coordinator_note_previous}}
+                {{form.acknowledged_previous}}
+                {{form.view}}
+                {{form.link_id}}
+
+                <td>{{ form.section( size=2 ) }} </td>
+                <td>{{ form.student_name( size=15) }}</td>
+
+                {% if view >= 2 %}
+                    <td>{{ form.program_id(size=1, disabled=True) }}</td>
+                    <td>{{ form.mode(size=1 ) }}</td>
+                    <td>{{ form.duration(size=4 ) }}</td>
+                    <td>{{ form.note(size=32 ) }}</td>
+                    <td>{{ form.coordinator_note( size=32 ) }}</td>
+                    <td>{{ form.acknowledged }}</td>
+                    {% if view == 3 %}
+                        <td>{{ form.email }}</td>
+                        <td>{{ form.email2 }}</td>
+                        <td>{{ form.phone1( size=8 ) }}</td>
+                        <td>{{ form.phone2( size=8 ) }}</td>
+                    {% endif %}
+                {% else %}
+                    <td>{{ form.program_id( size=1 ) }}</td>
+                    <td>{{ form.mode(size=1 ) }}</td>
+                    <td>{{ form.duration(size=4) }}</td>
+                    <td>{{ form.note( size=32 ) }}</td>
+                    <td>{{ form.coordinator_note(size=32, disabled=True) }}</td>
+                    <td>{{ form.acknowledged(disabled=True) }}</td>
+                {% endif %}
+                <td>{{ form.is_consent_signed( size=1, disabled=True ) }}</td>
+                <td>{{ form.consent_dated( size=8, disabled=True ) }}</td>
+
+                {% if view == 0 %}
+                    <td>
+                        <a href="{{ url_for('event_consent') }}"> Sign Consent </a>
+                    </td>
+                {% endif %}
+
+            </tr>
+        {% endfor %}
+    </table>
+    Count: {{ count }}
+    </p>
+    {% if view == 3 %}
+        <p></p>
+        <p>{{ render_submit_field(form.submit) }}</p>
+        <p></p>
+        <p><a href="{{ url_for('event_download') }}"> Participants Download </a>
+    {% elif view < 2 %}
+        <p></p>
+        <p>{{ render_submit_field(form.submit) }}</p>
+    {% endif %}
+
+</form>
+
+{% endblock %}
